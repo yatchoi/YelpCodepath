@@ -8,37 +8,24 @@
 
 import UIKit
 
-enum SortOption: String {
-  case BestMatch = "Best Match"
-  case Distance = "Distance"
-  case HighestRated = "Highest Rated"
+enum DistanceOption: Int {
+  case Auto = 0, OneThirdMile, OneMile, ThreeMiles, FiveMiles
 }
+
+let DistanceValues = [0, 0.3, 1, 3, 5]
+let DistanceStrings = ["Auto", "0.3 miles", "1 mile", "3 miles", "5 miles"]
 
 class FilterSet: NSObject {
   var offeringDeal: Bool?
-  var distance: NSNumber?
+  var distance: DistanceOption?
   var sort: YelpSortMode?
   var categories: Dictionary<String, Bool>! // <String, Bool> dictionary
   
-  init(dictionary: NSDictionary?) {
-    if let offeringDeal = dictionary?["deal"] as? Bool {
-      self.offeringDeal = offeringDeal
-    } else {
-      self.offeringDeal = nil
-    }
-    
-    if let distance = dictionary?["distance"] as? NSNumber {
-      self.distance = distance
-    } else {
-      self.distance = nil
-    }
-    
-    if let sort = dictionary?["sortBy"] as? YelpSortMode {
-      self.sort = sort
-    } else {
-      self.sort = YelpSortMode.BestMatched
-    }
-    
+  override init() {
+    super.init()
+    self.offeringDeal = nil
+    self.distance = DistanceOption.Auto
+    self.sort = YelpSortMode.BestMatched
     self.categories = Dictionary()
   }
   

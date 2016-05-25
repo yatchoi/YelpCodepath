@@ -11,11 +11,11 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Pf-12-D12">
-                        <rect key="frame" x="8" y="0.0" width="304" height="43"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Option" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uRe-ey-4jo">
                                 <rect key="frame" x="8" y="11" width="52" height="21"/>
@@ -24,7 +24,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="237-Qh-xVf">
-                                <rect key="frame" x="264" y="6" width="32" height="32"/>
+                                <rect key="frame" x="280" y="6" width="32" height="32"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gys-Ha-iky">
                                         <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
@@ -33,7 +33,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.70618990380000002" green="0.70618990380000002" blue="0.70618990380000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="32" id="4B5-t6-yWe"/>
                                     <constraint firstAttribute="bottom" secondItem="gys-Ha-iky" secondAttribute="bottom" id="9AW-pj-DBZ"/>
@@ -44,6 +44,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="237-Qh-xVf" secondAttribute="trailing" constant="8" id="BZv-bG-7Zx"/>
                             <constraint firstItem="uRe-ey-4jo" firstAttribute="centerY" secondItem="9Pf-12-D12" secondAttribute="centerY" id="lDI-jc-Gh5"/>
@@ -54,13 +55,14 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="9Pf-12-D12" secondAttribute="bottom" id="M1k-aQ-pFt"/>
-                    <constraint firstAttribute="trailing" secondItem="9Pf-12-D12" secondAttribute="trailing" constant="8" id="Vab-fJ-iV2"/>
-                    <constraint firstItem="9Pf-12-D12" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="eFY-bf-DCa"/>
+                    <constraint firstAttribute="trailing" secondItem="9Pf-12-D12" secondAttribute="trailing" id="Vab-fJ-iV2"/>
+                    <constraint firstItem="9Pf-12-D12" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="eFY-bf-DCa"/>
                     <constraint firstItem="9Pf-12-D12" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="qp7-wp-4Q1"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="buttonView" destination="237-Qh-xVf" id="vNr-nU-KTh"/>
+                <outlet property="cellView" destination="9Pf-12-D12" id="rGU-KV-eii"/>
                 <outlet property="mainButton" destination="gys-Ha-iky" id="zMg-sb-DFo"/>
                 <outlet property="optionLabel" destination="uRe-ey-4jo" id="Etw-Zb-lTR"/>
             </connections>

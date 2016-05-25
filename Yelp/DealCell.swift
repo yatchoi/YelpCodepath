@@ -14,6 +14,7 @@ protocol DealCellDelegate: class {
 
 class DealCell: UITableViewCell {
   
+  @IBOutlet weak var cellView: UIView!
   @IBOutlet weak var switchItem: UISwitch!
   
   var delegate: DealCellDelegate?
@@ -21,6 +22,16 @@ class DealCell: UITableViewCell {
   func populateSwitchCell(delegate: DealCellDelegate, isSet:Bool) {
     self.delegate = delegate
     switchItem.on = isSet
+    
+    let tapRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(DealCell.onCellTapped(_:)))
+    tapRecognizer.numberOfTapsRequired = 1
+    cellView.userInteractionEnabled = true
+    cellView.addGestureRecognizer(tapRecognizer)
+  }
+  
+  func onCellTapped(sender: UITapGestureRecognizer) {
+    switchItem.on = !switchItem.on
+    self.delegate?.dealCell(self, didUpdateValue: switchItem.on)
   }
   
   @IBAction func onSwitchValueChanged(sender: AnyObject) {

@@ -13,12 +13,13 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
   var businesses: [Business]!
   var filteredBusinesses: [Business]!
   
-  
-
   @IBOutlet weak var mainTableView: UITableView!
   
   var currentFilterSet: FilterSet?
   var searchController: UISearchController!
+  
+  var isMoreDataLoading = false
+  var loadingMoreView: InfiniteScrollActivityView?
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -52,6 +53,15 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let nib = UINib(nibName: "SearchTableViewCell", bundle: nil)
     self.mainTableView.registerNib(nib, forCellReuseIdentifier: "searchCell")
     
+    // Setup infinite scroll activity view
+    let frame = CGRectMake(0, mainTableView.contentSize.height, mainTableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight)
+    loadingMoreView = InfiniteScrollActivityView(frame: frame)
+    loadingMoreView?.hidden = true
+    
+    var insets = mainTableView.contentInset;
+    insets.bottom += InfiniteScrollActivityView.defaultHeight;
+    mainTableView.contentInset = insets
+    
     // Make yelp request
     makeYelpRequestWithTerm("Restaurants")
   }
@@ -84,9 +94,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
   func filters(filtersViewController: FiltersViewController, didSaveFilters filterSet:FilterSet) {
     currentFilterSet = filterSet
     self.navigationController?.popViewControllerAnimated(true)
-    let deals = currentFilterSet?.offeringDeal
-    let categoriesArray = currentFilterSet?.getCategoriesArray()
-    makeYelpRequestWithTerm("Restaurants", categories: categoriesArray, deals: deals)
+    makeRequestWithCurrentFilters(nil)
   }
   
   func onCancel(filtersViewController: FiltersViewController) {
@@ -107,12 +115,46 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     })
   }
   
-  func makeYelpRequestWithTerm(term: String, categories: [String]?, deals: Bool?) {
-    Business.searchWithTerm(term, sort: nil, categories: categories, deals: deals, completion: { (businesses: [Business]!, error: NSError!) -> Void in
-      self.businesses = businesses
-      self.filteredBusinesses = businesses
+  func makeYelpRequestWithTerm(term: String, sort: YelpSortMode?, categories: [String]?, deals: Bool?, distance: DistanceOption?, offset: Int?) {
+    Business.searchWithTerm(term, sort: sort, categories: categories, deals: deals, offset: offset, completion: { (businesses: [Business]!, error: NSError!) -> Void in
+      self.isMoreDataLoading = false
+      self.loadingMoreView!.stopAnimating()
+      var filteredResults = businesses
+
+      if (distance != DistanceOption.Auto) {
+        filteredResults = businesses.filter({ (business) -> Bool in
+          guard let fullDistanceString = business.distance else {
+            return false
+          }
+          
+          if (distance == nil) {
+            return true
+          }
+          
+          let distanceString = fullDistanceString.componentsSeparatedByString(" ").first!
+          let distanceValue = Double(distanceString)!
+          return distanceValue <= DistanceValues[(distance!.rawValue)]
+        })
+      }
+      
+      if (offset == nil || offset == 0) {
+        self.businesses = businesses
+        self.filteredBusinesses = filteredResults
+      } else {
+        self.businesses.appendContentsOf(businesses)
+        self.filteredBusinesses.appendContentsOf(filteredResults)
+      }
+      
       self.mainTableView.reloadData()
     })
+  }
+  
+  func makeRequestWithCurrentFilters(offset: Int?) {
+    let sort = currentFilterSet?.sort
+    let deals = currentFilterSet?.offeringDeal
+    let categoriesArray = currentFilterSet?.getCategoriesArray()
+    let distance = currentFilterSet?.distance
+    makeYelpRequestWithTerm("Restaurants", sort: sort, categories: categoriesArray, deals: deals, distance: distance, offset: offset)
   }
   
   // Event Handlers
@@ -133,4 +175,26 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
   }
   */
 
+}
+
+extension MainViewController: UIScrollViewDelegate {
+  func scrollViewDidScroll(scrollView: UIScrollView) {
+    if (!isMoreDataLoading) {
+      // Calculate the position of one screen length before the bottom of the results
+      let scrollViewContentHeight = mainTableView.contentSize.height
+      let scrollOffsetThreshold = scrollViewContentHeight - (mainTableView.bounds.size.height * 2)
+      
+      // When the user has scrolled past the threshold, start requesting
+      if(scrollView.contentOffset.y > scrollOffsetThreshold && mainTableView.dragging) {
+        isMoreDataLoading = true
+        
+        // Update position of loadingMoreView, and start loading indicator
+        let frame = CGRectMake(0, mainTableView.contentSize.height, mainTableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight)
+        loadingMoreView?.frame = frame
+        loadingMoreView!.startAnimating()
+        
+        makeRequestWithCurrentFilters(self.filteredBusinesses.count)
+      }
+    }
+  }
 }

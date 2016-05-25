@@ -37,6 +37,16 @@ class SwitchCell: UITableViewCell {
     category = name
     switchName.text = name
     switchItem.on = isSet
+    
+    let tapRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(SwitchCell.onCellTapped(_:)))
+    tapRecognizer.numberOfTapsRequired = 1
+    bgView.userInteractionEnabled = true
+    bgView.addGestureRecognizer(tapRecognizer)
+  }
+  
+  func onCellTapped(sender: AnyObject) {
+    switchItem.on = !switchItem.on
+    self.delegate?.switchCell(self, didUpdateValue: switchItem.on)
   }
   
   @IBAction func onSwitchValueChanged(sender: AnyObject) {

@@ -19,6 +19,9 @@
 		3B344C981CF3CA8B00652815 /* YelpData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B344C971CF3CA8B00652815 /* YelpData.swift */; };
 		3B344C9E1CF3E19000652815 /* SeeAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B344C9C1CF3E19000652815 /* SeeAllCell.swift */; };
 		3B344C9F1CF3E19000652815 /* SeeAllCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B344C9D1CF3E19000652815 /* SeeAllCell.xib */; };
+		3B41EB631CF6443300EE9044 /* InfiniteScrollActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B41EB621CF6443300EE9044 /* InfiniteScrollActivityView.swift */; };
+		3B41EB661CF64D1100EE9044 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B41EB641CF64D1100EE9044 /* MapViewController.swift */; };
+		3B41EB671CF64D1100EE9044 /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B41EB651CF64D1100EE9044 /* MapViewController.xib */; };
 		3B947D8B1CF4E8F90028390C /* DealCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B947D891CF4E8F90028390C /* DealCell.swift */; };
 		3B947D8C1CF4E8F90028390C /* DealCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B947D8A1CF4E8F90028390C /* DealCell.xib */; };
 		3B947D8F1CF4FAC90028390C /* ExpandableOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B947D8D1CF4FAC90028390C /* ExpandableOptionCell.swift */; };
@@ -46,6 +49,9 @@
 		3B344C971CF3CA8B00652815 /* YelpData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpData.swift; sourceTree = "<group>"; };
 		3B344C9C1CF3E19000652815 /* SeeAllCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeeAllCell.swift; sourceTree = "<group>"; };
 		3B344C9D1CF3E19000652815 /* SeeAllCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SeeAllCell.xib; sourceTree = "<group>"; };
+		3B41EB621CF6443300EE9044 /* InfiniteScrollActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteScrollActivityView.swift; sourceTree = "<group>"; };
+		3B41EB641CF64D1100EE9044 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		3B41EB651CF64D1100EE9044 /* MapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
 		3B947D891CF4E8F90028390C /* DealCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealCell.swift; sourceTree = "<group>"; };
 		3B947D8A1CF4E8F90028390C /* DealCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DealCell.xib; sourceTree = "<group>"; };
 		3B947D8D1CF4FAC90028390C /* ExpandableOptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableOptionCell.swift; sourceTree = "<group>"; };
@@ -111,6 +117,8 @@
 				3BE340C81CF39146009D481F /* MainViewController.xib */,
 				3B344C8C1CF3B11F00652815 /* FiltersViewController.swift */,
 				3B344C8D1CF3B11F00652815 /* FiltersViewController.xib */,
+				3B41EB641CF64D1100EE9044 /* MapViewController.swift */,
+				3B41EB651CF64D1100EE9044 /* MapViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -120,6 +128,7 @@
 			children = (
 				3B344C841CF396F100652815 /* YelpClient.swift */,
 				3B344C971CF3CA8B00652815 /* YelpData.swift */,
+				3B41EB621CF6443300EE9044 /* InfiniteScrollActivityView.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -245,6 +254,7 @@
 				3BE340BD1CF39053009D481F /* Assets.xcassets in Resources */,
 				3B947D941CF512AD0028390C /* RadioCell.xib in Resources */,
 				3B344C951CF3C99200652815 /* SwitchCell.xib in Resources */,
+				3B41EB671CF64D1100EE9044 /* MapViewController.xib in Resources */,
 				3B947D8C1CF4E8F90028390C /* DealCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,10 +322,12 @@
 				3B344C941CF3C99200652815 /* SwitchCell.swift in Sources */,
 				3B947D8F1CF4FAC90028390C /* ExpandableOptionCell.swift in Sources */,
 				3B344C8E1CF3B11F00652815 /* FiltersViewController.swift in Sources */,
+				3B41EB631CF6443300EE9044 /* InfiniteScrollActivityView.swift in Sources */,
 				3B344C9E1CF3E19000652815 /* SeeAllCell.swift in Sources */,
 				3B947D8B1CF4E8F90028390C /* DealCell.swift in Sources */,
 				3B344C981CF3CA8B00652815 /* YelpData.swift in Sources */,
 				3B947D931CF512AD0028390C /* RadioCell.swift in Sources */,
+				3B41EB661CF64D1100EE9044 /* MapViewController.swift in Sources */,
 				3B344C8A1CF398AE00652815 /* SearchTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -14,6 +14,7 @@ protocol RadioCellDelegate: class {
 
 class RadioCell: UITableViewCell {
 
+  @IBOutlet weak var cellView: UIView!
   @IBOutlet weak var optionLabel: UILabel!
   @IBOutlet weak var buttonView: UIView!
   @IBOutlet weak var mainButton: UIButton!
@@ -24,8 +25,19 @@ class RadioCell: UITableViewCell {
     self.delegate = delegate
     self.optionLabel.text = name
     if (isSet) {
-      mainButton.backgroundColor = UIColor.greenColor()
+      mainButton.setImage(UIImage(named:"RadioSelected"), forState: .Normal)
+    } else {
+      mainButton.setImage(UIImage(named:"RadioUnselected"), forState: .Normal)
     }
+    
+    let tapRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(RadioCell.onCellTapped(_:)))
+    tapRecognizer.numberOfTapsRequired = 1
+    cellView.userInteractionEnabled = true
+    cellView.addGestureRecognizer(tapRecognizer)
+  }
+  
+  func onCellTapped(sender: UITapGestureRecognizer) {
+    self.delegate?.onButtonTapped(self)
   }
   
   @IBAction func mainButtonTapped(sender: AnyObject) {

@@ -39,9 +39,14 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     definesPresentationContext = true
 
     // Filter button in nav
-    let filterButton = UIBarButtonItem(title: "Filter", style: .Plain, target: self, action: "filterButtonTapped")
+    let filterButton = UIBarButtonItem(title: "Filter", style: .Plain, target: self, action: #selector(MainViewController.filterButtonTapped))
     filterButton.tintColor = UIColor.whiteColor()
     navigationItem.leftBarButtonItem = filterButton
+    
+    // Map button in nav
+    let mapButton = UIBarButtonItem(title: "Map", style: .Plain , target: self, action: #selector(MainViewController.mapButtonTapped))
+    mapButton.tintColor = UIColor.whiteColor()
+    navigationItem.rightBarButtonItem = mapButton
     
     // Do Table setup
     self.mainTableView.delegate = self
@@ -164,6 +169,14 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     self.navigationController?.pushViewController(filterVC, animated: true)
   }
   
+  // Event Handlers
+  func mapButtonTapped() {
+    let mapVC = MapViewController()
+    mapVC.delegate = self
+    mapVC.businesses = self.filteredBusinesses
+    self.navigationController?.pushViewController(mapVC, animated: true)
+  }
+  
 
   /*
   // MARK: - Navigation
@@ -196,5 +209,11 @@ extension MainViewController: UIScrollViewDelegate {
         makeRequestWithCurrentFilters(self.filteredBusinesses.count)
       }
     }
+  }
+}
+
+extension MainViewController: MapViewDelegate {
+  func onBackTapped(mapViewController: MapViewController) {
+    self.navigationController?.popViewControllerAnimated(true)
   }
 }

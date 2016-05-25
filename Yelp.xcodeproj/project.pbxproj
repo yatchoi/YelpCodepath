@@ -28,6 +28,9 @@
 		3B947D901CF4FAC90028390C /* ExpandableOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B947D8E1CF4FAC90028390C /* ExpandableOptionCell.xib */; };
 		3B947D931CF512AD0028390C /* RadioCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B947D911CF512AD0028390C /* RadioCell.swift */; };
 		3B947D941CF512AD0028390C /* RadioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B947D921CF512AD0028390C /* RadioCell.xib */; };
+		3BE31B681CF65D44009A5ADC /* YelpAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE31B671CF65D44009A5ADC /* YelpAnnotation.swift */; };
+		3BE31B6B1CF66FDA009A5ADC /* BusinessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE31B691CF66FDA009A5ADC /* BusinessViewController.swift */; };
+		3BE31B6C1CF66FDA009A5ADC /* BusinessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BE31B6A1CF66FDA009A5ADC /* BusinessViewController.xib */; };
 		3BE340B61CF39053009D481F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE340B51CF39053009D481F /* AppDelegate.swift */; };
 		3BE340BD1CF39053009D481F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BE340BC1CF39053009D481F /* Assets.xcassets */; };
 		3BE340C01CF39053009D481F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BE340BE1CF39053009D481F /* LaunchScreen.storyboard */; };
@@ -58,6 +61,9 @@
 		3B947D8E1CF4FAC90028390C /* ExpandableOptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpandableOptionCell.xib; sourceTree = "<group>"; };
 		3B947D911CF512AD0028390C /* RadioCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioCell.swift; sourceTree = "<group>"; };
 		3B947D921CF512AD0028390C /* RadioCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RadioCell.xib; sourceTree = "<group>"; };
+		3BE31B671CF65D44009A5ADC /* YelpAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpAnnotation.swift; sourceTree = "<group>"; };
+		3BE31B691CF66FDA009A5ADC /* BusinessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessViewController.swift; sourceTree = "<group>"; };
+		3BE31B6A1CF66FDA009A5ADC /* BusinessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusinessViewController.xib; sourceTree = "<group>"; };
 		3BE340B21CF39053009D481F /* Yelp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yelp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BE340B51CF39053009D481F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3BE340BC1CF39053009D481F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -119,6 +125,8 @@
 				3B344C8D1CF3B11F00652815 /* FiltersViewController.xib */,
 				3B41EB641CF64D1100EE9044 /* MapViewController.swift */,
 				3B41EB651CF64D1100EE9044 /* MapViewController.xib */,
+				3BE31B691CF66FDA009A5ADC /* BusinessViewController.swift */,
+				3BE31B6A1CF66FDA009A5ADC /* BusinessViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -129,6 +137,7 @@
 				3B344C841CF396F100652815 /* YelpClient.swift */,
 				3B344C971CF3CA8B00652815 /* YelpData.swift */,
 				3B41EB621CF6443300EE9044 /* InfiniteScrollActivityView.swift */,
+				3BE31B671CF65D44009A5ADC /* YelpAnnotation.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -247,6 +256,7 @@
 			files = (
 				3B947D901CF4FAC90028390C /* ExpandableOptionCell.xib in Resources */,
 				3BE340C01CF39053009D481F /* LaunchScreen.storyboard in Resources */,
+				3BE31B6C1CF66FDA009A5ADC /* BusinessViewController.xib in Resources */,
 				3B344C8B1CF398AE00652815 /* SearchTableViewCell.xib in Resources */,
 				3B344C9F1CF3E19000652815 /* SeeAllCell.xib in Resources */,
 				3B344C8F1CF3B11F00652815 /* FiltersViewController.xib in Resources */,
@@ -315,9 +325,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B344C911CF3BF7A00652815 /* FilterSet.swift in Sources */,
+				3BE31B6B1CF66FDA009A5ADC /* BusinessViewController.swift in Sources */,
 				3BE340B61CF39053009D481F /* AppDelegate.swift in Sources */,
 				3B344C871CF3971000652815 /* Business.swift in Sources */,
 				3B344C851CF396F100652815 /* YelpClient.swift in Sources */,
+				3BE31B681CF65D44009A5ADC /* YelpAnnotation.swift in Sources */,
 				3BE340C91CF39146009D481F /* MainViewController.swift in Sources */,
 				3B344C941CF3C99200652815 /* SwitchCell.swift in Sources */,
 				3B947D8F1CF4FAC90028390C /* ExpandableOptionCell.swift in Sources */,

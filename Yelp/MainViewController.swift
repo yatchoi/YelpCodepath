@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import MapKit
+import CoreLocation
 
-class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, FiltersDelegate {
+class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, FiltersDelegate, CLLocationManagerDelegate {
   
   var businesses: [Business]!
   var filteredBusinesses: [Business]!
@@ -20,6 +22,9 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
   
   var isMoreDataLoading = false
   var loadingMoreView: InfiniteScrollActivityView?
+  
+  var locationManager : CLLocationManager!
+  var currentLocation: CLLocation!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -68,6 +73,12 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     mainTableView.contentInset = insets
     
     // Make yelp request
+    locationManager = CLLocationManager()
+    locationManager.delegate = self
+    locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+    locationManager.distanceFilter = 200
+    locationManager.requestWhenInUseAuthorization()
+
     makeYelpRequestWithTerm("Restaurants")
   }
   
@@ -82,6 +93,13 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     cell.populateCellWithBusiness(filteredBusinesses[indexPath.row])
     
     return cell
+  }
+  
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    let bvc = BusinessViewController()
+    bvc.delegate = self
+    bvc.business = filteredBusinesses[indexPath.row]
+    self.navigationController?.pushViewController(bvc, animated: true)
   }
   
   // UISearchResultUpdating functions
@@ -112,8 +130,17 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
   
   // View Controller functions
   
+  func getCurrentLocation() -> CLLocationCoordinate2D {
+    if (locationManager.location != nil) {
+      self.currentLocation = locationManager.location!
+    } else {
+      currentLocation = CLLocation(latitude: 37.785771,longitude: -122.406165)
+    }
+    return self.currentLocation.coordinate
+  }
+  
   func makeYelpRequestWithTerm(term: String) {
-    Business.searchWithTerm(term, completion: { (businesses: [Business]!, error: NSError!) -> Void in
+    Business.searchWithTerm(term, location: getCurrentLocation(), completion: { (businesses: [Business]!, error: NSError!) -> Void in
       self.businesses = businesses
       self.filteredBusinesses = businesses
       self.mainTableView.reloadData()
@@ -121,7 +148,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
   }
   
   func makeYelpRequestWithTerm(term: String, sort: YelpSortMode?, categories: [String]?, deals: Bool?, distance: DistanceOption?, offset: Int?) {
-    Business.searchWithTerm(term, sort: sort, categories: categories, deals: deals, offset: offset, completion: { (businesses: [Business]!, error: NSError!) -> Void in
+    Business.searchWithTerm(term, sort: sort, categories: categories, deals: deals, offset: offset, location: getCurrentLocation(), completion: { (businesses: [Business]!, error: NSError!) -> Void in
       self.isMoreDataLoading = false
       self.loadingMoreView!.stopAnimating()
       var filteredResults = businesses
@@ -176,17 +203,6 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     mapVC.businesses = self.filteredBusinesses
     self.navigationController?.pushViewController(mapVC, animated: true)
   }
-  
-
-  /*
-  // MARK: - Navigation
-
-  // In a storyboard-based application, you will often want to do a little preparation before navigation
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-      // Get the new view controller using segue.destinationViewController.
-      // Pass the selected object to the new view controller.
-  }
-  */
 
 }
 
@@ -214,6 +230,12 @@ extension MainViewController: UIScrollViewDelegate {
 
 extension MainViewController: MapViewDelegate {
   func onBackTapped(mapViewController: MapViewController) {
+    self.navigationController?.popViewControllerAnimated(true)
+  }
+}
+
+extension MainViewController: BusinessViewDelegate {
+  func businessView(onBackTapped businessViewController: BusinessViewController) {
     self.navigationController?.popViewControllerAnimated(true)
   }
 }

@@ -10,6 +10,7 @@ import UIKit
 
 import AFNetworking
 import BDBOAuth1Manager
+import MapKit
 
 // You can register for Yelp API keys here: http://www.yelp.com/developers/manage_api_keys
 let yelpConsumerKey = "JezvCG_cmlqyiz-NE9mQlw"
@@ -53,15 +54,17 @@ class YelpClient: BDBOAuth1RequestOperationManager {
     self.requestSerializer.saveAccessToken(token)
   }
   
-  func searchWithTerm(term: String, completion: ([Business]!, NSError!) -> Void) -> AFHTTPRequestOperation {
-    return searchWithTerm(term, sort: nil, categories: nil, deals: nil, offset: nil, completion: completion)
+  func searchWithTerm(term: String, location: CLLocationCoordinate2D, completion: ([Business]!, NSError!) -> Void) -> AFHTTPRequestOperation {
+    return searchWithTerm(term, sort: nil, categories: nil, deals: nil, offset: nil, location: location, completion: completion)
   }
   
-  func searchWithTerm(term: String, sort: YelpSortMode?, categories: [String]?, deals: Bool?, offset: Int?,completion: ([Business]!, NSError!) -> Void) -> AFHTTPRequestOperation {
+  func searchWithTerm(term: String, sort: YelpSortMode?, categories: [String]?, deals: Bool?, offset: Int?, location: CLLocationCoordinate2D, completion: ([Business]!, NSError!) -> Void) -> AFHTTPRequestOperation {
     // For additional parameters, see http://www.yelp.com/developers/documentation/v2/search_api
     
     // Default the location to San Francisco
-    var parameters: [String : AnyObject] = ["term": term, "ll": "37.785771,-122.406165"]
+    let locationString = "\(location.latitude),\(location.longitude)"
+    
+    var parameters: [String : AnyObject] = ["term": term, "ll": locationString, "actionlinks": true]
     
     if sort != nil {
       parameters["sort"] = sort!.rawValue

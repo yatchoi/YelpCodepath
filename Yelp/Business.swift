@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import MapKit
 
 class Business: NSObject {
+  let id: String?
   let name: String?
   let address: String?
   let imageURL: NSURL?
@@ -18,8 +20,12 @@ class Business: NSObject {
   let reviewCount: NSNumber?
   let latitude: Double?
   let longitude: Double?
+  let eat24Url: NSURL?
+  let reservationURL: NSURL?
+  var reviews: [Review]?
   
   init(dictionary: NSDictionary) {
+    id = dictionary["id"] as? String
     name = dictionary["name"] as? String
     
     let imageURLString = dictionary["image_url"] as? String
@@ -84,7 +90,29 @@ class Business: NSObject {
       ratingImageURL = nil
     }
     
+    let eat24UrlString = dictionary["eat24_url"] as? String
+    if eat24UrlString != nil {
+      eat24Url = NSURL(string: eat24UrlString!)
+    } else {
+      eat24Url = nil
+    }
+    
+    let reservationURLString = dictionary["reservation_url"] as? String
+    if reservationURLString != nil {
+      reservationURL = NSURL(string: reservationURLString!)
+    } else {
+      reservationURL = nil
+    }
+    
     reviewCount = dictionary["review_count"] as? NSNumber
+    
+    let reviews = dictionary["reviews"] as? NSArray
+    if (reviews != nil && reviews!.count > 0) {
+      let review = Review(dictionary: reviews![0] as! NSDictionary)
+      self.reviews = [review]
+    } else {
+      self.reviews = nil
+    }
   }
   
   class func businesses(array array: [NSDictionary]) -> [Business] {
@@ -96,11 +124,15 @@ class Business: NSObject {
     return businesses
   }
   
-  class func searchWithTerm(term: String, completion: ([Business]!, NSError!) -> Void) {
-    YelpClient.sharedInstance.searchWithTerm(term, completion: completion)
+  class func searchWithTerm(term: String, location: CLLocationCoordinate2D, completion: ([Business]!, NSError!) -> Void) {
+    YelpClient.sharedInstance.searchWithTerm(term, location: location, completion: completion)
   }
   
-  class func searchWithTerm(term: String, sort: YelpSortMode?, categories: [String]?, deals: Bool?, offset: Int?, completion: ([Business]!, NSError!) -> Void) -> Void {
-    YelpClient.sharedInstance.searchWithTerm(term, sort: sort, categories: categories, deals: deals, offset: offset, completion: completion)
+  class func searchWithTerm(term: String, sort: YelpSortMode?, categories: [String]?, deals: Bool?, offset: Int?, location: CLLocationCoordinate2D, completion: ([Business]!, NSError!) -> Void) -> Void {
+    YelpClient.sharedInstance.searchWithTerm(term, sort: sort, categories: categories, deals: deals, offset: offset, location: location, completion: completion)
+  }
+  
+  class func businessWithId(id: String, completion: (Business!, NSError!) -> Void) {
+    YelpBusinessClient.sharedInstance.businessWithId(id, completion: completion)
   }
 }

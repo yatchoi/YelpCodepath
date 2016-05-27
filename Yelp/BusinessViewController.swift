@@ -131,7 +131,7 @@ class BusinessViewController: UIViewController {
     let currentLocationAnnotation = mapView.userLocation
     let mapAnnotations = NSArray.init(array: mapView.annotations)
     let finalArray = mapAnnotations.arrayByAddingObject(currentLocationAnnotation)
-    mapView.showAnnotations(finalArray as! [MKAnnotation], animated: true)
+    mapView.showAnnotations(finalArray as! [MKAnnotation], animated: false)
   }
   
   override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {

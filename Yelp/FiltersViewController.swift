@@ -27,7 +27,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
   
   var tableData: [Int: NSMutableDictionary] = [
     0: [
-      "header": "",
+      "header": "Deals",
       "expandable": false,
       "numRows": 1
     ],
@@ -166,6 +166,40 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
   func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     let sectionData = tableData[section]! as NSDictionary
     return sectionData["header"] as? String
+  }
+  
+  func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    let sectionData = tableData[section]! as NSDictionary
+    
+    if sectionData["header"] as? String != "" {
+      let headerView = UIView.init(frame: CGRectMake(0,0,categoriesTableView.bounds.width, 120))
+      headerView.backgroundColor = UIColor(red: 126.0/255.0, green: 26.0/255.0, blue: 36.0/255.0, alpha: 1.0)
+      
+      let label = UILabel(frame: .zero)
+      label.font = UIFont(name: "Helvetica", size: 14)
+      label.text = sectionData["header"] as? String
+      label.textColor = UIColor.whiteColor()
+      
+      headerView.addSubview(label)
+      label.translatesAutoresizingMaskIntoConstraints = false
+      
+      let leading = NSLayoutConstraint(item: label, attribute: .Leading, relatedBy: .Equal, toItem: headerView, attribute: .Leading, multiplier: 1, constant: 10)
+      let centerY = NSLayoutConstraint.init(item: label, attribute: .CenterY, relatedBy: .Equal, toItem: headerView, attribute: .CenterY, multiplier: 1, constant: 0)
+
+      headerView.addConstraint(leading)
+      headerView.addConstraint(centerY)
+      
+      return headerView
+    }
+    return nil
+  }
+  
+  func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    return 40
+  }
+  
+  func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    return 20
   }
   
   // SeeAllCellDelegate functions

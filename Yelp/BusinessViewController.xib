@@ -92,30 +92,34 @@
                                 <constraint firstAttribute="trailing" secondItem="FYs-bg-JmV" secondAttribute="trailing" constant="10" id="wg5-Db-i9A"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nU7-QB-PRo">
-                            <rect key="frame" x="0.0" y="151" width="160" height="34"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                            <state key="normal" title="Order Now!"/>
-                            <connections>
-                                <action selector="orderNowTapped:" destination="-1" eventType="touchUpInside" id="KbQ-sh-VNd"/>
-                            </connections>
-                        </button>
                         <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="e07-x3-iTD">
-                            <rect key="frame" x="0.0" y="185" width="320" height="180"/>
+                            <rect key="frame" x="0.0" y="181" width="320" height="180"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="180" id="Yfd-vT-YGB"/>
                             </constraints>
                         </mapView>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="w9a-ss-aHp">
-                            <rect key="frame" x="0.0" y="365" width="320" height="165"/>
+                            <rect key="frame" x="0.0" y="361" width="320" height="165"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </tableView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="51i-Go-mKn">
-                            <rect key="frame" x="160" y="151" width="160" height="34"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                            <state key="normal" title="Make Reservation"/>
+                            <rect key="frame" x="160" y="151" width="160" height="30"/>
+                            <color key="backgroundColor" red="0.69427046302691231" green="0.64206332569148339" blue="0.70618990380000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" title="Reserve Table"/>
                             <connections>
                                 <action selector="onReservationTapped:" destination="-1" eventType="touchUpInside" id="Q3L-wJ-Lcd"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nU7-QB-PRo">
+                            <rect key="frame" x="0.0" y="151" width="160" height="30"/>
+                            <color key="backgroundColor" red="0.59373053153918454" green="0.70618990380000002" blue="0.57029780558496745" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" title="Order Now"/>
+                            <connections>
+                                <action selector="orderNowTapped:" destination="-1" eventType="touchUpInside" id="KbQ-sh-VNd"/>
                             </connections>
                         </button>
                     </subviews>

@@ -32,6 +32,8 @@ class BusinessViewController: UIViewController {
   var delegate: BusinessViewDelegate?
   
   var locationManager : CLLocationManager!
+  var locationIsSet = false
+  var zoomIsSet = false
   
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
@@ -40,6 +42,12 @@ class BusinessViewController: UIViewController {
   
   override func viewWillDisappear(animated: Bool) {
     self.mapView.userLocation.removeObserver(self, forKeyPath: "location")
+  }
+  
+  override func viewDidAppear(animated: Bool) {
+    if locationIsSet == false {
+      goToLocation(CLLocation(latitude: business.latitude!, longitude: business.longitude!))
+    }
   }
 
   override func viewDidLoad() {
@@ -58,6 +66,9 @@ class BusinessViewController: UIViewController {
     reviewsLabel.text = "\(business.reviewCount!) Reviews"
     topImageView.af_setImageWithURL(business.imageURL!)
     reviewsImage.af_setImageWithURL(business.ratingImageURL!)
+    
+    setDisabledBackgroundColorForButton(orderNowButton)
+    setDisabledBackgroundColorForButton(makeReservationButton)
     
     if (business.eat24Url != nil) {
       orderNowButton.enabled = true
@@ -132,10 +143,22 @@ class BusinessViewController: UIViewController {
     let mapAnnotations = NSArray.init(array: mapView.annotations)
     let finalArray = mapAnnotations.arrayByAddingObject(currentLocationAnnotation)
     mapView.showAnnotations(finalArray as! [MKAnnotation], animated: false)
+    zoomIsSet = true
+  }
+  
+  func setDisabledBackgroundColorForButton(button: UIButton) {
+    let rect = CGRectMake(0, 0, button.frame.width,button.frame.height)
+    UIGraphicsBeginImageContext(rect.size)
+    let context = UIGraphicsGetCurrentContext()
+    CGContextSetFillColor(context, CGColorGetComponents(UIColor.lightGrayColor().CGColor))
+    CGContextFillRect(context, rect)
+    let image = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    button.setBackgroundImage(image, forState: .Disabled)
   }
   
   override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-    if keyPath == "location" {
+    if keyPath == "location" && !zoomIsSet {
       setZoom()
     }
   }
@@ -161,10 +184,7 @@ extension BusinessViewController: CLLocationManagerDelegate {
   }
   
   func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    if let location = locations.first {
-      goToLocation(location)
-      mapView.showsUserLocation = true
-      setZoom()
-    }
+    mapView.showsUserLocation = true
+    locationIsSet = true
   }
 }

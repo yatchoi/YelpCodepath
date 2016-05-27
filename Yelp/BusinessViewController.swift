@@ -32,6 +32,15 @@ class BusinessViewController: UIViewController {
   var delegate: BusinessViewDelegate?
   
   var locationManager : CLLocationManager!
+  
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    self.mapView.userLocation.addObserver(self, forKeyPath: "location", options: NSKeyValueObservingOptions.init(rawValue: 0), context: nil)
+  }
+  
+  override func viewWillDisappear(animated: Bool) {
+    self.mapView.userLocation.removeObserver(self, forKeyPath: "location")
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -68,13 +77,13 @@ class BusinessViewController: UIViewController {
     navigationItem.leftBarButtonItem = backButton
     
     // Map setup
-    mapView.showsUserLocation = true
-    
     locationManager = CLLocationManager()
     locationManager.delegate = self
     locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
     locationManager.distanceFilter = 200
     locationManager.requestWhenInUseAuthorization()
+    
+    addAnnotationAtCoordination(self.business)
     
     // Review Table setup
     let nib = UINib(nibName: "ReviewTableCell", bundle: nil)
@@ -94,6 +103,13 @@ class BusinessViewController: UIViewController {
     UIApplication.sharedApplication().openURL(business.reservationURL!)
   }
   
+  func addAnnotationAtCoordination(business:Business) {
+    let coordinate = CLLocationCoordinate2D(latitude: business.latitude!, longitude: business.longitude!)
+    let annotation = MKPointAnnotation()
+    annotation.coordinate = coordinate
+    mapView.addAnnotation(annotation)
+  }
+  
   func backTapped() {
     delegate?.businessView(onBackTapped: self)
   }
@@ -109,6 +125,19 @@ class BusinessViewController: UIViewController {
     let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
     let region = MKCoordinateRegionMake(location.coordinate, span)
     mapView.setRegion(region, animated: false)
+  }
+  
+  func setZoom() {
+    let currentLocationAnnotation = mapView.userLocation
+    let mapAnnotations = NSArray.init(array: mapView.annotations)
+    let finalArray = mapAnnotations.arrayByAddingObject(currentLocationAnnotation)
+    mapView.showAnnotations(finalArray as! [MKAnnotation], animated: true)
+  }
+  
+  override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    if keyPath == "location" {
+      setZoom()
+    }
   }
 }
 
@@ -134,6 +163,8 @@ extension BusinessViewController: CLLocationManagerDelegate {
   func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     if let location = locations.first {
       goToLocation(location)
+      mapView.showsUserLocation = true
+      setZoom()
     }
   }
 }

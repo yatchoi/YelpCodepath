@@ -68,7 +68,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     // Load existing filters
     if let existingFilters = delegate?.getExistingFilters(self) {
-      dirtyFilterSet = existingFilters
+      dirtyFilterSet = existingFilters.copy() as! FilterSet
     }
     
     // Table setup

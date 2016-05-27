@@ -100,6 +100,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     bvc.delegate = self
     bvc.business = filteredBusinesses[indexPath.row]
     self.navigationController?.pushViewController(bvc, animated: true)
+    tableView.deselectRowAtIndexPath(indexPath, animated: false)
   }
   
   // UISearchResultUpdating functions

@@ -15,7 +15,7 @@ enum DistanceOption: Int {
 let DistanceValues = [0, 0.3, 1, 3, 5]
 let DistanceStrings = ["Auto", "0.3 miles", "1 mile", "3 miles", "5 miles"]
 
-class FilterSet: NSObject {
+class FilterSet: NSObject, NSCopying {
   var offeringDeal: Bool?
   var distance: DistanceOption?
   var sort: YelpSortMode?
@@ -61,5 +61,14 @@ class FilterSet: NSObject {
       }
     }
     return categoriesArray
+  }
+  
+  func copyWithZone(zone: NSZone) -> AnyObject {
+    let copy = FilterSet()
+    copy.offeringDeal = self.offeringDeal
+    copy.distance = self.distance
+    copy.sort = self.sort
+    copy.categories = self.categories
+    return copy
   }
 }

@@ -27,12 +27,14 @@ PODS:
     - AFNetworking/NSURLConnection (~> 2.6.0)
     - AFNetworking/NSURLSession (~> 2.6.0)
   - MBProgressHUD (0.9.2)
+  - SevenSwitch (2.0.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
   - AlamofireImage (~> 2.0)
   - BDBOAuth1Manager
   - MBProgressHUD
+  - SevenSwitch (~> 2.0)
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
@@ -40,7 +42,8 @@ SPEC CHECKSUMS:
   AlamofireImage: 87408b652e0f5ae5fe364035f15aea8b9b24c77e
   BDBOAuth1Manager: cd5a5872f355ca38180d52ca2dd844f0b0c84797
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
+  SevenSwitch: 4ae92ffcad0ef93b38553b39a25e753c94eb7847
 
-PODFILE CHECKSUM: 099e3fed1dbee6defd570166edccbb8e24ad3e86
+PODFILE CHECKSUM: 9232cc77bd345fcc0fdd4cb827d61e47ee15555c
 
 COCOAPODS: 1.0.0

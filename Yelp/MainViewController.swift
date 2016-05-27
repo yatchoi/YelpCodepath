@@ -222,7 +222,7 @@ extension MainViewController: UIScrollViewDelegate {
         loadingMoreView?.frame = frame
         loadingMoreView!.startAnimating()
         
-        makeRequestWithCurrentFilters(self.filteredBusinesses.count)
+        makeRequestWithCurrentFilters(self.filteredBusinesses?.count)
       }
     }
   }

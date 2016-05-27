@@ -10,4 +10,5 @@ target 'Yelp' do
   pod 'BDBOAuth1Manager'
   pod 'MBProgressHUD'
   pod 'AlamofireImage', '~> 2.0'
+  pod 'SevenSwitch', '~> 2.0'
 end

@@ -34,6 +34,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SevenSwitch.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -57,7 +62,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D0AC0ECA85C21BCBA0C9A43CDDD7B350</key>
+		<key>AE94B11E94BB85FBD29BB86C591EC3A3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CD9937478FCE9EB40D274D464C8D5676</key>
 		<dict>
 			<key>primary</key>
 			<true/>
